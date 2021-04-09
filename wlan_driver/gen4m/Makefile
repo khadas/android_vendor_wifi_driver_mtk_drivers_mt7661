@@ -428,6 +428,11 @@ ifeq ($(MODULE_NAME),)
 	MODULE_NAME := wlan_$(shell echo $(strip $(WLAN_CHIP_ID)) | tr A-Z a-z)_$(CONFIG_MTK_COMBO_WIFI_HIF)
 endif
 
+ifndef CONFIG_KASAN
+KBUILD_CFLAGS_MODULE += -Wlarger-than=40000 \
+ -Wframe-larger-than=1024
+endif
+
 src = $(KERNEL_SRC)/$(M)
 
 ccflags-y += -DDBG=0
